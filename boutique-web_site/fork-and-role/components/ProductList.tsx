@@ -1,4 +1,4 @@
-import { products, type Category } from "@/data/products";
+import type { Product, Category } from "@/data/products";
 import ProductRow from "./ProductRow";
 
 const sections: { category: Category; title: string; note: string }[] = [
@@ -14,7 +14,17 @@ const sections: { category: Category; title: string; note: string }[] = [
   },
 ];
 
-export default function ProductList() {
+export default function ProductList({ products }: { products: Product[] }) {
+  if (products.length === 0) {
+    return (
+      <section className="mx-auto max-w-content px-6 pb-24">
+        <p className="text-sm text-muted">
+          Aucun article disponible pour le moment.
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="mx-auto max-w-content px-6 pb-24">
       {sections.map(({ category, title, note }) => {
